@@ -1,0 +1,74 @@
+# ===============================
+# APPLICATION
+# ===============================
+spring.application.name=claimservice
+server.port=8083
+
+# ===============================
+# EUREKA
+# ===============================
+eureka.client.service-url.defaultZone=${EUREKA_URL}
+eureka.instance.prefer-ip-address=true
+
+# ===============================
+# DATABASE
+# ===============================
+spring.datasource.url=${DB_CLAIM_URL}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASS}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# ===============================
+# JPA
+# ===============================
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+# ===============================
+# EMAIL
+# ===============================
+spring.mail.host=${MAIL_HOST}
+spring.mail.port=${MAIL_PORT}
+spring.mail.username=${MAIL_USERNAME}
+spring.mail.password=${MAIL_PASSWORD}
+
+notification.from-email=${MAIL_USERNAME}
+
+# ===============================
+# FILE UPLOAD
+# ===============================
+spring.servlet.multipart.enabled=true
+spring.servlet.multipart.max-file-size=5MB
+spring.servlet.multipart.max-request-size=5MB
+
+# ===============================
+# SECURITY
+# ===============================
+jwt.secret=${JWT_SECRET}
+jwt.expiration=${JWT_EXPIRATION}
+internal.secret=${INTERNAL_SECRET}
+
+# ===============================
+# RABBITMQ
+# ===============================
+spring.rabbitmq.host=${RABBITMQ_HOST}
+spring.rabbitmq.port=${RABBITMQ_PORT}
+spring.rabbitmq.username=${RABBITMQ_USERNAME}
+spring.rabbitmq.password=${RABBITMQ_PASSWORD}
+
+# ===============================
+# OBSERVABILITY
+# ===============================
+management.tracing.sampling.probability=${TRACING_SAMPLE_RATE}
+management.zipkin.tracing.endpoint=${ZIPKIN_URL}/api/v2/spans
+
+management.endpoints.web.exposure.include=health,info,metrics,prometheus
+management.endpoint.prometheus.access=unrestricted
+management.endpoint.health.show-details=always
+management.metrics.tags.application=${spring.application.name}
+
+# ===============================
+# LOGGING
+# ===============================
+loki.url=${LOKI_URL}
+logging.pattern.level=%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]
